@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fresh Meat Shop</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Fresh Meat Shop</h1>
+            <p>100% Halal Meat - Order Chicken, Goat Meat, Fish & Eggs Online</p>
+        </div>
+        <div class="cart-icon">
+            <i class="fas fa-shopping-cart" id="cartButton"></i>
+            <span class="cart-count">0</span>
+        </div>
+    </header>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search products...">
+        <button onclick="searchProducts()"><i class="fas fa-search"></i></button>
+    </div>
+
+    <section class="products">
+        <h2>Our Halal Products</h2>
+        <div class="product-list" id="productList">
+            <!-- Chicken Products -->
+            <div class="product" data-category="chicken">
+                <img src="whole chicken.jpeg" alt="Whole Chicken" />
+                <h3>Whole Chicken</h3>
+                <p>₹200 / kg</p>
+                <button onclick="addToCart('Whole Chicken', 200, 'kg')">Add to Cart</button>
+            </div>
+            <div class="product" data-category="chicken">
+                <img src="chicken breast.jpeg" alt="Chicken Breast" />
+                <h3>Chicken Breast</h3>
+                <p>₹250 / kg</p>
+                <button onclick="addToCart('Chicken Breast', 250, 'kg')">Add to Cart</button>
+            </div>
+            <div class="product" data-category="chicken">
+                <img src="Chicken leg.jpeg" alt="Chicken Leg" />
+                <h3>Chicken Leg</h3>
+                <p>₹220 / kg</p>
+                <button onclick="addToCart('Chicken Leg', 220, 'kg')">Add to Cart</button>
+            </div>
+            <div class="product" data-category="chicken">
+                <img src="Chicken Wings.jpeg" alt="Chicken Wings" />
+                <h3>Chicken Wings</h3>
+                <p>₹180 / kg</p>
+                <button onclick="addToCart('Chicken Wings', 180, 'kg')">Add to Cart</button>
+            </div>
+            <div class="product" data-category="chicken">
+                <img src="download (2).jpeg" alt="Boneless Chicken" />
+                <h3>Boneless Chicken</h3>
+                <p>₹280 / kg</p>
+                <button onclick="addToCart('Boneless Chicken', 280, 'kg')">Add to Cart</button>
+            </div>
+
+            <!-- Goat Meat Products -->
+            <div class="product" data-category="goat">
+                <img src="goat meat.jpeg" alt="Goat Meat" />
+                <h3>Goat Meat (Regular)</h3>
+                <p>₹600 / kg</p>
+                <button onclick="addToCart('Goat Meat (Regular)', 600, 'kg')">Add to Cart</button>
+            </div>
+            <div class="product" data-category="goat">
+                <img src="gc.jpeg" alt="Goat Curry Cut" />
+                <h3>Goat Curry Cut</h3>
+                <p>₹650 / kg</p>
+                <button onclick="addToCart('Goat Curry Cut', 650, 'kg')">Add to Cart</button>
+            </div>
+
+            <!-- Fish Products -->
+            <div class="product" data-category="fish">
+                <img src="rohu.jpeg" alt="Fish" />
+                <h3>Rohu Fish</h3>
+                <p>₹300 / kg</p>
+                <button onclick="addToCart('Rohu Fish', 300, 'kg')">Add to Cart</button>
+            </div>
+            <div class="product" data-category="fish">
+                <img src="pomfret.jpeg" alt="Pomfret Fish" />
+                <h3>Pomfret Fish</h3>
+                <p>₹500 / kg</p>
+                <button onclick="addToCart('Pomfret Fish', 500, 'kg')">Add to Cart</button>
+            </div>
+
+            <!-- Egg Products -->
+            <div class="product" data-category="eggs">
+                <img src="egg.jpeg" alt="Farm Eggs" />
+                <h3>Farm Eggs (12 pcs)</h3>
+                <p>₹80</p>
+                <button onclick="addToCart('Farm Eggs (12 pcs)', 80, 'dozen')">Add to Cart</button>
+            </div>
+            <div class="product" data-category="eggs">
+                <img src="desi egg.jpeg" alt="Desi Eggs" />
+                <h3>Desi Eggs (12 pcs)</h3>
+                <p>₹120</p>
+                <button onclick="addToCart('Desi Eggs (12 pcs)', 120, 'dozen')">Add to Cart</button>
+            </div>
+
+            <!-- Seafood Products -->
+            <div class="product" data-category="seafood">
+                <img src="prawns.jpeg" alt="Prawns" />
+                <h3>Prawns</h3>
+                <p>₹700 / kg</p>
+                <button onclick="addToCart('Prawns', 700, 'kg')">Add to Cart</button>
+            </div>
+            <div class="product" data-category="seafood">
+                <img src="crab.jpeg" alt="Crab" />
+                <h3>Crab</h3>
+                <p>₹800 / kg</p>
+                <button onclick="addToCart('Crab', 800, 'kg')">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>Your Cart</h2>
+            <div class="cart-items" id="cartItems">
+                <!-- Cart items will be added here dynamically -->
+            </div>
+            <div class="cart-summary">
+                <p>Total: ₹<span id="cartTotal">0</span></p>
+                <p>Estimated Delivery: <span id="deliveryTime">30-45 minutes</span></p>
+            </div>
+            <button class="checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Checkout Form -->
+    <section class="order-form" id="checkoutForm">
+        <h2>Checkout</h2>
+        <form id="orderForm">
+            <label>Your Name:
+                <input type="text" id="name" required />
+            </label>
+
+            <label>Phone Number:
+                <input type="tel" id="phone" required />
+            </label>
+
+            <label>Delivery Address:
+                <textarea id="address" required></textarea>
+            </label>
+
+            <label>Delivery Time:
+                <select id="deliveryTimeSelect" required>
+                    <option value="30-45 minutes">ASAP (30-45 minutes)</option>
+                    <option value="1 hour">Within 1 hour</option>
+                    <option value="2 hours">Within 2 hours</option>
+                    <option value="specific">Schedule for later</option>
+                </select>
+            </label>
+
+            <div id="scheduleContainer" style="display: none;">
+                <label>Select Date and Time:
+                    <input type="datetime-local" id="scheduledTime" />
+                </label>
+            </div>
+
+            <button type="submit">Place Order</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Fresh Meat Shop - 100% Halal Certified</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
